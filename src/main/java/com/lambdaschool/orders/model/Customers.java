@@ -1,4 +1,6 @@
-package lambda.javasql.model;
+package com.lambdaschool.orders.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -6,15 +8,15 @@ import java.util.List;
 
 @Entity
 @Table(name="customer")
-public class Customer
+public class Customers
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long custcode;
 
-	@Column
+	@Column(nullable = false)
 	private String custname;
+
 	private String custcity;
 	private String workingarea;
 	private String custcountry;
@@ -27,18 +29,21 @@ public class Customer
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "agentcode", nullable = false)
-	private long agentcode;
+	@JsonIgnoreProperties({"customers", "agent_orders", "hibernateLazyInitializer"})
+	private Agents agent;
 
 
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Order> orders = new ArrayList<>();
+	@JsonIgnoreProperties({"customer", "agent", "hibernateLazyInitialiaer"})
+	private List<Orders> customer_orders = new ArrayList<>();
 
-	public Customer()
+	public Customers()
 	{
 	}
 
-	public Customer(String custname, String custcity, String workingarea, String custcountry, String grade,
-					double openingamt, double receiveamt, double outstandingamt, String phone, long agentcode)
+	public Customers(String custname, String custcity, String workingarea, String custcountry, String grade,
+					 double openingamt, double receiveamt, double outstandingamt, double paymentamt, String phone,
+					 Agents agent)
 	{
 		this.custname = custname;
 		this.custcity = custcity;
@@ -48,18 +53,19 @@ public class Customer
 		this.openingamt = openingamt;
 		this.receiveamt = receiveamt;
 		this.outstandingamt = outstandingamt;
+		this.paymentamt = paymentamt;
 		this.phone = phone;
-		this.agentcode = agentcode;
+		this.agent = agent;
 	}
 
-	public List<Order> getOrders()
+	public List<Orders> getOrders()
 	{
-		return orders;
+		return customer_orders;
 	}
 
-	public void setOrders(List<Order> orders)
+	public void setOrders(List<Orders> customer_orders)
 	{
-		this.orders = orders;
+		this.customer_orders = customer_orders;
 	}
 
 	public double getPaymentamt()
@@ -172,13 +178,13 @@ public class Customer
 		this.phone = phone;
 	}
 
-	public long getAgentcode()
+	public Agents getAgent()
 	{
-		return agentcode;
+		return agent;
 	}
 
-	public void setAgentcode(long agentcode)
+	public void setAgent(Agents agent)
 	{
-		this.agentcode = agentcode;
+		this.agent = agent;
 	}
 }

@@ -26,7 +26,7 @@ public class SeedData implements CommandLineRunner
 	}
 
 	@Override
-	public void run(String... args) throws Exception
+	public void run(String[] args) throws Exception
 	{
 		Agents a01 = new Agents("Ramasundar", "Bangalore", 0.15, "077-25814763", "");
 		Agents a02 = new Agents("Alex ", "London", 0.13, "075-12458969", "");

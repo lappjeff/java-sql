@@ -1,14 +1,15 @@
-package lambda.javasql.model;
+package com.lambdaschool.orders.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "order")
-public class Order
+@Table(name = "orders")
+public class Orders
 {
 	@Id
-	@GeneratedValue
-	@Column(nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long ordnum;
 
 	private double ordamount;
@@ -16,24 +17,27 @@ public class Order
 	private String orddescription;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "customercode", nullable = false)
-	private long custcode;
+	@JoinColumn(name = "custcode", nullable = false)
+	@JsonIgnoreProperties({"agent", "customer_orders"})
+	private Customers customer;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "agentcode", nullable = false)
-	private long agentcode;
+	@JsonIgnoreProperties({"customers", "agent_orders"})
+	private Agents agent;
 
-	public Order()
+	public Orders()
 	{
 	}
 
-	public Order(double ordamount, double advanceamount, String orddescription, long custcode, long agentcode)
+	public Orders(double ordamount, double advanceamount, Customers customer, Agents agent, String orddescription)
 	{
 		this.ordamount = ordamount;
 		this.advanceamount = advanceamount;
+		this.customer = customer;
+		this.agent = agent;
 		this.orddescription = orddescription;
-		this.custcode = custcode;
-		this.agentcode = agentcode;
+
 	}
 
 	public long getOrdnum()
@@ -76,23 +80,23 @@ public class Order
 		this.orddescription = orddescription;
 	}
 
-	public long getCustcode()
+	public Customers getCustcode()
 	{
-		return custcode;
+		return customer;
 	}
 
-	public void setCustcode(long custcode)
+	public void setCustcode(Customers customer)
 	{
-		this.custcode = custcode;
+		this.customer = customer;
 	}
 
-	public long getAgentcode()
+	public Agents getAgentcode()
 	{
-		return agentcode;
+		return agent;
 	}
 
-	public void setAgentcode(long agentcode)
+	public void setAgentcode(Agents agent)
 	{
-		this.agentcode = agentcode;
+		this.agent = agent;
 	}
 }

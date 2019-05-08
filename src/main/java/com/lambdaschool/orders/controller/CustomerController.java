@@ -1,7 +1,7 @@
-package lambda.javasql.controller;
+package com.lambdaschool.orders.controller;
 
-import lambda.javasql.model.Customer;
-import lambda.javasql.service.CustomerService;
+import com.lambdaschool.orders.model.Customers;
+import com.lambdaschool.orders.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/home")
 public class CustomerController
 {
 	@Autowired
@@ -22,7 +22,7 @@ public class CustomerController
 	@GetMapping(value = "/customer/orders", produces = {"application/json"})
 	public ResponseEntity<?> listAllOrders()
 	{
-		List<Customer> myCustomers = customerService.findAll();
+		List<Customers> myCustomers = customerService.findAll();
 		return new ResponseEntity<>(myCustomers, HttpStatus.OK);
 	}
 }

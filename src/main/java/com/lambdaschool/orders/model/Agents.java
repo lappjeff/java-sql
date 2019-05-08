@@ -1,4 +1,6 @@
-package lambda.javasql.model;
+package com.lambdaschool.orders.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -6,11 +8,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "agent")
-public class Agent
+public class Agents
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long agentcode;
 
 	private String agentname;
@@ -20,15 +21,18 @@ public class Agent
 	private String country;
 
 	@OneToMany(mappedBy = "agent", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Customer> customers = new ArrayList<>();
+	@JsonIgnoreProperties({"agent", "customer_orders"})
+	private List<Customers> customers = new ArrayList<>();
 
 	@OneToMany(mappedBy = "agent", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Order> orders = new ArrayList<>();
-	public Agent()
+	@JsonIgnoreProperties({"agent", "customer"})
+	private List<Orders> agent_orders = new ArrayList<>();
+
+	public Agents()
 	{
 	}
 
-	public Agent(String agentname, String workingarea, double commission, String phone, String country)
+	public Agents(String agentname, String workingarea, double commission, String phone, String country)
 	{
 		this.agentname = agentname;
 		this.workingarea = workingarea;
@@ -95,5 +99,25 @@ public class Agent
 	public void setCountry(String country)
 	{
 		this.country = country;
+	}
+
+	public List<Customers> getCustomers()
+	{
+		return customers;
+	}
+
+	public void setCustomers(List<Customers> customers)
+	{
+		this.customers = customers;
+	}
+
+	public List<Orders> getOrders()
+	{
+		return agent_orders;
+	}
+
+	public void setOrders(List<Orders> agent_orders)
+	{
+		this.agent_orders = agent_orders;
 	}
 }

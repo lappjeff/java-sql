@@ -1,4 +1,4 @@
-package lambda.javasql;
+package com.lambdaschool.orders;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

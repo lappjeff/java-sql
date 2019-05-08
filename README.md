@@ -64,7 +64,7 @@ Answer the following data queries. Keep track of the SQL you write by pasting it
 > FROM customers
 > WHERE CustomerName LIKE '%market%'
 
-### add a customer record for _"The Shire"_, the contact name is _"Bilbo Baggins"_ the address is _"1 Hobbit-Hole"_ in _"Bag End"_, postal code _"111"_ and the country is _"Middle Earth"_.
+### add a customers record for _"The Shire"_, the contact name is _"Bilbo Baggins"_ the address is _"1 Hobbit-Hole"_ in _"Bag End"_, postal code _"111"_ and the country is _"Middle Earth"_.
 
 > This can be done with the INSERT INTO clause
 > INSERT INTO customers(CustomerName, ContactName, Address, City, PostalCode, Country)
@@ -77,7 +77,7 @@ Answer the following data queries. Keep track of the SQL you write by pasting it
 > SET PostalCode = '11122'
 > WHERE ContactName = 'Bilbo Baggins'
 
-### list orders grouped by customer showing the number of orders per customer. _Rattlesnake Canyon Grocery_ should have 7 orders.
+### list orders grouped by customers showing the number of orders per customers. _Rattlesnake Canyon Grocery_ should have 7 orders.
 
 > This can be done with SELECT, COUNT, JOIN and GROUP BY clauses. Your count should focus on a field in the Orders table, not the Customer table
 
@@ -87,7 +87,7 @@ Answer the following data queries. Keep track of the SQL you write by pasting it
 > ON o.CustomerID = c.CustomerID
 > GROUP BY c.CustomerName
 
-### list customers names and the number of orders per customer. Sort the list by number of orders in descending order. _Ernst Handel_ should be at the top with 10 orders followed by _QUICK-Stop_, _Rattlesnake Canyon Grocery_ and _Wartian Herkku_ with 7 orders each.
+### list customers names and the number of orders per customers. Sort the list by number of orders in descending order. _Ernst Handel_ should be at the top with 10 orders followed by _QUICK-Stop_, _Rattlesnake Canyon Grocery_ and _Wartian Herkku_ with 7 orders each.
 
 > This can be done by adding an ORDER BY clause to the previous answer
 > SELECT COUNT(o.CustomerID) as BuyCount, c.CustomerID, c.CustomerName
@@ -96,7 +96,7 @@ Answer the following data queries. Keep track of the SQL you write by pasting it
 > GROUP BY c.CustomerName
 > ORDER BY BuyCount DESC, c.CustomerName
 
-### list orders grouped by customer's city showing number of orders per city. Returns 58 Records with _Aachen_ showing 2 orders and _Albuquerque_ showing 7 orders.
+### list orders grouped by customers's city showing number of orders per city. Returns 58 Records with _Aachen_ showing 2 orders and _Albuquerque_ showing 7 orders.
 
 > This is very similar to the previous two queries, however, it focuses on the City rather than the CustomerName
 > SELECT c.City, COUNT(o.CustomerID) as BuyCount
